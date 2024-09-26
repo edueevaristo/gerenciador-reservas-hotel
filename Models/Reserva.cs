@@ -3,14 +3,19 @@
     public class Reserva
     {
         public string Id { get; set; }
-        public DateTime data { get; set; }
+        public DateTime DataCriacao { get; set; }
+        public DateTime DataReservaDuracao { get; set; }
         public Hospede Hospede { get; set; }    
         public Quarto Quarto { get; set; }
 
-        public void RealizarReserva(Hospede hospede, Quarto quarto)
+        private Reserva() { }
+
+        public Reserva(Hospede hospede, Quarto quarto, DateTime dataCriacao, DateTime dataReservaDuracao)
         {
             Hospede = hospede;
             Quarto = quarto;
+            DataCriacao = dataCriacao;
+            DataReservaDuracao = dataReservaDuracao;
         }
     }
 }

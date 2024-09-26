@@ -2,7 +2,7 @@
 {
     public class Quarto
     {
-        public string Id { get; set; } 
+        public int Id { get; set; } 
         public string Numero { get; set; }
         public string Categoria { get; set; }
     }
