@@ -35,7 +35,8 @@ namespace gerenciador_reservas_hotel.Services
                 throw new InvalidOperationException("Hóspede inativo. Não é possível agendar a reserva.");
             }
 
-            Quarto quarto = await _quartoService.GetQuartoOrThrowError(reservaDTO.Quarto);
+            int quartoId = reservaDTO.Quarto.First().QuartoId;
+            Quarto quarto = await _quartoService.GetQuartoOrThrowError(quartoId);
             bool quartoDisponivel = await _reservaRepository.IsQuartoDisponivel(quarto.Id, reservaDTO.DataReserva);
             if (!quartoDisponivel)
             {
