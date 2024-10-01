@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using gerenciador_reservas_hotel.Repositories.Data;
 
 namespace gerenciador_reservas_hotel
 {
@@ -6,6 +8,9 @@ namespace gerenciador_reservas_hotel
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<ReservasDbContext>(options =>
+               options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); // Para SQL Server
 
             // Add services to the container.
 
