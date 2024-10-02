@@ -1,6 +1,7 @@
 using gerenciador_reservas_hotel.DTOs;
 using gerenciador_reservas_hotel.Models;
 using gerenciador_reservas_hotel.Repositories;
+using gerenciador_reservas_hotel.Repositories.Data;
 
 namespace gerenciador_reservas_hotel.Services
 {
@@ -25,9 +26,34 @@ namespace gerenciador_reservas_hotel.Services
             return hospede;
         }
 
-        internal async Task<Hospede> GetHospedeOrThrowError(ICollection<HospedeDTO> hospede)
+        internal async Task<Hospede> GetHospedeOrThrowError(ICollection<HospedeDTO> hospedes)
         {
-            throw new NotImplementedException();
+            if (hospedes == null || !hospedes.Any())
+            {
+                throw new ArgumentException("A coleção de hóspedes não pode ser nula ou vazia.");
+            }
+
+            var hospedeId = hospedes.First().HospedeId;
+
+            return await GetHospedeOrThrowError(hospedeId);
+        }
+
+        public async Task<Hospede> CreateHospede(HospedeDTO hospedeDTO)
+        {
+            if (hospedeDTO == null)
+            {
+                throw new ArgumentNullException("Erro ao tentar registrar o hóspede");
+            }
+
+            var hospede = new Hospede
+            {
+                Id = hospedeDTO.HospedeId,
+                Nome = hospedeDTO.Nome,
+                Email = hospedeDTO.Email,
+                Ativo = hospedeDTO.Ativo
+            };
+
+            return await _hospedeRepository.SaveHospede(hospede);
         }
     }
 }

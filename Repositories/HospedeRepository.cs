@@ -21,5 +21,12 @@ namespace gerenciador_reservas_hotel.Repositories
 
             return hospede;
         }
+
+        public async Task<Hospede> SaveHospede(Hospede hospede)
+        {
+            _context.Hospede.Add(hospede);
+            await _context.SaveChangesAsync();
+            return hospede;
+        }
     }
 }

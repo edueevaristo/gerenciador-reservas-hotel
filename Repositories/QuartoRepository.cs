@@ -21,5 +21,12 @@ namespace gerenciador_reservas_hotel.Repositories
                 
             return quarto;
         }
+
+        public async Task<Quarto> SaveQuarto(Quarto quarto)
+        {
+            _context.Quarto.Add(quarto);
+            await _context.SaveChangesAsync();
+            return quarto;
+        }
     }
 }

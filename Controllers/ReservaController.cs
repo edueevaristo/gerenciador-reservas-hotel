@@ -24,7 +24,10 @@ namespace gerenciador_reservas_hotel.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Reserva>>> GetReservas()
         {
-            return await _context.Reservas.ToListAsync();
+            return await _context.Reservas
+                .Include(r => r.Hospede)
+                .Include(r => r.Quarto)
+                .ToListAsync();
         }
 
         [HttpPost]
@@ -32,7 +35,7 @@ namespace gerenciador_reservas_hotel.Controllers
         {
             Reserva reserva = await _reservaService.CreateReserva(reservaDTO);
 
-            return CreatedAtAction(nameof(PostReserva), new { id = reserva.Id }, reserva);
+            return CreatedAtAction(nameof(GetReservas), new { id = reserva.Id }, reserva);
         }
 
     }
