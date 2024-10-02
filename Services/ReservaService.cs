@@ -28,7 +28,7 @@ namespace gerenciador_reservas_hotel.Services
 
         public async Task<Reserva> CreateReserva(ReservaDTO reservaDTO)
         {
-            
+
             Hospede hospede = await _hospedeService.GetHospedeOrThrowError(reservaDTO.Hospede);
             if (!hospede.Ativo)
             {
@@ -38,6 +38,7 @@ namespace gerenciador_reservas_hotel.Services
             int quartoId = reservaDTO.Quarto.First().QuartoId;
             Quarto quarto = await _quartoService.GetQuartoOrThrowError(quartoId);
             bool quartoDisponivel = await _reservaRepository.IsQuartoDisponivel(quarto.Id, reservaDTO.DataReserva);
+
             if (!quartoDisponivel)
             {
                 throw new InvalidOperationException("O quarto não está disponível para a data solicitada.");

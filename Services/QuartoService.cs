@@ -26,5 +26,22 @@ namespace gerenciador_reservas_hotel.Services
 
             return quartos;
         }
+
+        public async Task<Quarto> CreateQuarto(QuartoDTO quartoDTO)
+        {
+            if (quartoDTO == null)
+            {
+                throw new ArgumentNullException("Erro ao tentar registrar o quarto");
+            }
+
+            var quarto = new Quarto
+            {
+                Id = quartoDTO.QuartoId,
+                Categoria = quartoDTO.Categoria,
+                Numero = quartoDTO.Numero
+            };
+
+            return await _quartoRepository.SaveQuarto(quarto);
+        }
     }
 }
